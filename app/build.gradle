@@ -1,0 +1,83 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.2"
+    repositories {
+        jcenter()
+    }
+    defaultConfig {
+        applicationId "com.android.mvvmtest"
+        minSdkVersion 16
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    dataBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'androidx.core:core-ktx:1.3.2'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    //koin
+    // Koin for Kotlin
+    implementation "org.koin:koin-core:$koin_version"
+
+// Koin Extended & experimental features
+    implementation "org.koin:koin-core-ext:$koin_version"
+
+// Koin for Unit tests
+    testImplementation "org.koin:koin-test:$koin_version"
+
+    // AndroidX Scope 생성 - 삭제 자동화
+    implementation "org.koin:koin-androidx-scope:$koin_version"
+// AndroidX ViewModel
+    implementation "org.koin:koin-androidx-viewmodel:$koin_version"
+// AndroidX Fragment
+    implementation "org.koin:koin-androidx-fragment:$koin_version"
+
+    //retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.8.2'
+    implementation "com.squareup.retrofit2:converter-gson:2.8.2"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:2.5.0"
+    implementation "io.reactivex.rxjava2:rxjava:2.2.1"
+    implementation "io.reactivex.rxjava2:rxandroid:2.1.0"
+    implementation "com.squareup.retrofit2:retrofit-mock:2.4.0"
+    //암복호화 모듈
+    implementation fileTree(include: '*.aar', dir: 'src/main/libs/')
+    implementation fileTree(include: '*.jar', dir: 'src/main/libs/')
+    //websocket
+    implementation 'com.neovisionaries:nv-websocket-client:2.9'
+
+    //okhttp
+    implementation 'com.squareup.okhttp3:okhttp:4.7.1'
+
+
+}
