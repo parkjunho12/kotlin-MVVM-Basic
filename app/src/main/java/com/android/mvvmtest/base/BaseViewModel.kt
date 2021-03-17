@@ -2,12 +2,7 @@ package com.android.mvvmtest.base
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
-import antiscamCrypto.AntiscamCrypto
-import com.android.mvvmtest.Model.response.ReqHeader
-import com.android.mvvmtest.Model.response.ReqSVC0001
 import com.android.mvvmtest.Model.response.RspHeader
-import com.android.mvvmtest.Model.response.RspSVC0000
-import com.android.mvvmtest.global.GlobalApplication
 import com.android.mvvmtest.util.ToastMessage
 import com.google.gson.Gson
 import io.reactivex.disposables.CompositeDisposable

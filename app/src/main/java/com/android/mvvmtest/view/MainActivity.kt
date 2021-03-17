@@ -1,8 +1,6 @@
 package com.android.mvvmtest.view
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import androidx.lifecycle.Observer
 import com.android.mvvmtest.Model.response.RspHeader
 import com.android.mvvmtest.R

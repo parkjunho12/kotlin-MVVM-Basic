@@ -30,7 +30,6 @@ class DataModelImpl(
 //            retData = AntiscamCrypto.encryptData(GlobalApplication.sessionkey, retData)
 //        }
         return retData
-//
 // return params
     }
 

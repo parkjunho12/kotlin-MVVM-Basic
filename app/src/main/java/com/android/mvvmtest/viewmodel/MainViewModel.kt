@@ -22,6 +22,10 @@ class MainViewModel (private val dataModel: DataModel): BaseViewModel(){
     val webSocketResponse: LiveData<ResponseBody>
         get() = _webSocketResponse
 
+    private val _responseString = MutableLiveData<String>()
+    val responseString: LiveData<String>
+        get() = _responseString
+
 
     fun initIntro() {
         val reqHeader = ReqHeader("SVC0000")
@@ -45,7 +49,7 @@ class MainViewModel (private val dataModel: DataModel): BaseViewModel(){
     fun addDispos(reqHeader: ReqHeader, reqBody: RequestFormat?) {
         addtodisposable(dataModel.CallHttpRequest(reqHeader = reqHeader, reqBody = reqBody)
             .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+//            .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 it.run {
                     distributeSVC(response = this)
@@ -59,11 +63,10 @@ class MainViewModel (private val dataModel: DataModel): BaseViewModel(){
         var jsonString = response.string()
         jsonString = jsonString.replace("\\", "").replace("\"{", "{")
         var jsonObj : JSONObject? = null
-        try {
-            jsonObj = JSONObject(jsonString)
-        }catch (ex : java.lang.Exception)
-        {
-            jsonObj = null
+        jsonObj = try {
+            JSONObject(jsonString)
+        }catch (ex : java.lang.Exception) {
+            null
         }
         var rspHeader = Gson().fromJson(jsonObj!!.get("Header").toString(), RspHeader::class.java)
 
@@ -73,6 +76,7 @@ class MainViewModel (private val dataModel: DataModel): BaseViewModel(){
                     if (rspHeader.ErrMsg != "") {
                         showSnackbar(rspHeader.ErrMsg)
                     }
+                    _responseString.postValue("NotCool")
                 }else{
                     showSnackbar(rspHeader.ErrMsg)
                     var rspBody = Gson().fromJson(jsonObj!!.get("Body").toString(), RspSVC0000::class.java)
@@ -82,6 +86,7 @@ class MainViewModel (private val dataModel: DataModel): BaseViewModel(){
 //                    requestSessionKey(AntiscamCrypto.encryptSessionKey(publicKey, sessionKey))
                     requestGongzi()
                 }
+                _responseString.postValue("Cool")
             }
             "SVC0001" ->{
                 if ( rspHeader.ErrCode != 0){
